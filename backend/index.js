@@ -383,6 +383,10 @@ app.get("/fetchAllFh", (req, res) => {
   });
 });
 
+app.get("/", (req,res) => {
+  res.send("h1")
+})
+
 // app.use(express.static(path.join(__dirname, "../dashboard/build")));
 
 // app.get("*", (req, res) => {

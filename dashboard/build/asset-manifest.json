@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.957631f6.css",
+    "main.js": "/static/js/main.3bccb7e1.js",
+    "static/js/787.545aecf5.chunk.js": "/static/js/787.545aecf5.chunk.js",
+    "static/media/getflylogo.png": "/static/media/getflylogo.0a54eeca4700bef5a3ea.png",
+    "static/media/logo.png": "/static/media/logo.6c9f02864bd40c640278.png",
+    "index.html": "/index.html",
+    "main.957631f6.css.map": "/static/css/main.957631f6.css.map",
+    "main.3bccb7e1.js.map": "/static/js/main.3bccb7e1.js.map",
+    "787.545aecf5.chunk.js.map": "/static/js/787.545aecf5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.957631f6.css",
+    "static/js/main.3bccb7e1.js"
+  ]
+}
