@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 // Create Token and saving in cookie
-const JWT_SECRET = "SDLKFFAOVASDKVJNDVNADOSEEJMENDJSFSASGE"
+const JWT_SECRET = process.env.JWT_SECRET;
 const getJWTToken = (id) => {
     return jwt.sign({ id: id }, JWT_SECRET, {
         expiresIn: "5d",

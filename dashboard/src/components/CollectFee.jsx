@@ -167,7 +167,7 @@ const CollectFee = () => {
   const FetchStudentAndSave = async () => {
     const result = await FetchStudent();
     if (Object.keys(result).length) {
-      console.log(result);
+      // console.log(result);
       setStudent(result);
       setName(result.name);
       setBranch(result.branch);

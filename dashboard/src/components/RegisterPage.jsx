@@ -29,7 +29,7 @@ const RegisterPage = () => {
     setEmail(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (validator.isLength(password, { min: 6 })) {
@@ -50,7 +50,7 @@ const RegisterPage = () => {
     }
 
     if(validEmail && validPassword)
-      register()
+      await register()
   };
 
   const register = async () => {
@@ -63,7 +63,7 @@ const RegisterPage = () => {
       );
       if(data.success===true){
         console.log("Register successful")
-        Cookies.set('token', data.token);
+        Cookies.set("token", data.token, { expires: 0 });
         history.push('/')
       }
       else{

@@ -3,11 +3,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Cookies from "js-cookie";
 import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
@@ -22,24 +18,36 @@ import Dashboard from "./components/Dashboard";
 import AddBranchForm from "./components/Master/AddBranchForm";
 
 const App = () => {
-  const [isLoggedin, setisLoggedin] = useState(true);
+  const [isLoggedin, setisLoggedin] = useState(false);
+
+  // const removeTokenCookie = () => {
+  //   Cookies.remove("token");
+  //   console.log("cookies removed")
+  // };
+
+  // window.addEventListener("beforeunload", removeTokenCookie);
+
   useEffect(() => {
-    const checkTokenExpiration = () => {
-      const token = Cookies.get("token");
-      if (!token || hasTokenExpired(token)) {
-        setisLoggedin(false);
-      }
-    };
     checkTokenExpiration(); // Check on initial component mount
+    // console.log(isLoggedin);
 
     // Add event listener to check token expiration when the page loads
-    window.addEventListener("load", checkTokenExpiration);
+    // window.addEventListener("load", checkTokenExpiration);
 
-    // Clean up the event listener on component unmount
-    return () => {
-      window.removeEventListener("load", checkTokenExpiration);
-    };
+    // // Clean up the event listener on component unmount
+    // return () => {
+    //   window.removeEventListener("load", checkTokenExpiration);
+    // };
   }, []);
+
+  const checkTokenExpiration = () => {
+    const token = Cookies.get("token");
+    if (!token || hasTokenExpired(token)) {
+      setisLoggedin(false);
+    } else {
+      setisLoggedin(true); // Set isLoggedin to true if token is valid
+    }
+  };
 
   const hasTokenExpired = (token) => {
     const tokenExpiration = getTokenExpiration(token);
@@ -59,7 +67,7 @@ const App = () => {
       return null;
     }
   };
-  
+
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -107,74 +115,70 @@ const App = () => {
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/logout" component={LoginPage} />
-            <Router>
-              {isLoggedin ? (
-                <div className="container">
-                  <Navbar />
-                  <div className="content">
-                    <Sidebar />
-                    <div style={styles.mainContent}>
-                      <div style={styles.greeting}>
-                        <h1>Hello, User</h1>
-                        <div className="dt" style={styles.dt}>
-                          <p className="para">{formatDate()}</p>
-                          <p className="para">{formatWeekday()}</p>
-                          <p className="para">{formatTime()}</p>
-                        </div>
+            {/* <Router> */}
+            {isLoggedin ? (
+              <div className="container">
+                <Navbar />
+                <div className="content">
+                  <Sidebar />
+                  <div style={styles.mainContent}>
+                    <div style={styles.greeting}>
+                      <h1>Hello, User</h1>
+                      <div className="dt" style={styles.dt}>
+                        <p className="para">{formatDate()}</p>
+                        <p className="para">{formatWeekday()}</p>
+                        <p className="para">{formatTime()}</p>
                       </div>
-                      <hr style={styles.horizontalLine} />
-
-                      <Switch>
-                        <Route exact path="/" component={Dashboard} />
-                        <Route
-                          exact
-                          path="/collectfee"
-                          component={CollectFee}
-                        />
-                        <Route
-                          exact
-                          path="/generatereceipts"
-                          component={GenerateReceipt}
-                        />
-                        <Route
-                          exact
-                          path="/addStudent"
-                          component={AddStudentForm}
-                        />
-                        <Route
-                          exact
-                          path="/addacademicyear"
-                          component={AddAcademicYearForm}
-                        />
-                        <Route
-                          exact
-                          path="/addbranch"
-                          component={AddBranchForm}
-                        />
-                        <Route
-                          exact
-                          path="/addfeeheads"
-                          component={AddFeeHeadForm}
-                        />
-                        <Route
-                          exact
-                          path="/addcategory"
-                          component={AddCategoryForm}
-                        />
-                        <Route
-                          exact
-                          path="/mapfeetocat"
-                          component={MapFeeHeadsForm}
-                        />
-                        <Route exact path="/logout" component={""} />
-                      </Switch>
                     </div>
+                    <hr style={styles.horizontalLine} />
+
+                    <Switch>
+                      <Route exact path="/" component={Dashboard} />
+                      <Route exact path="/collectfee" component={CollectFee} />
+                      <Route
+                        exact
+                        path="/generatereceipts"
+                        component={GenerateReceipt}
+                      />
+                      <Route
+                        exact
+                        path="/addStudent"
+                        component={AddStudentForm}
+                      />
+                      <Route
+                        exact
+                        path="/addacademicyear"
+                        component={AddAcademicYearForm}
+                      />
+                      <Route
+                        exact
+                        path="/addbranch"
+                        component={AddBranchForm}
+                      />
+                      <Route
+                        exact
+                        path="/addfeeheads"
+                        component={AddFeeHeadForm}
+                      />
+                      <Route
+                        exact
+                        path="/addcategory"
+                        component={AddCategoryForm}
+                      />
+                      <Route
+                        exact
+                        path="/mapfeetocat"
+                        component={MapFeeHeadsForm}
+                      />
+                      {/* <Route exact path="/logout" component={""} /> */}
+                    </Switch>
                   </div>
                 </div>
-              ) : (
-                <LoginPage />
-              )}
-            </Router>
+              </div>
+            ) : (
+              <Route exact path="/" component={LoginPage} />
+            )}
+            {/* </Router> */}
           </Switch>
         </Router>
       </div>

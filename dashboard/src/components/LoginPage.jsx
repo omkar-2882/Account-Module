@@ -29,7 +29,7 @@ const LoginPage = () => {
     setEmail(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (validator.isLength(password, { min: 6 })) {
@@ -49,7 +49,7 @@ const LoginPage = () => {
       setValidEmail(false);
     }
     if (validEmail && validPassword) {
-      login();
+      await login();
     }
   };
 
@@ -66,6 +66,7 @@ const LoginPage = () => {
         const fourHours = 4 * 60 * 60 * 1000; // Convert 4 hours to milliseconds
         const expirationDate = new Date(Date.now() + fourHours);
         Cookies.set("token", data.token, { expires: expirationDate });
+        // Cookies.set("token", data.token, { expires: 0 });
         history.push("/");
         window.location.reload();
       } else {

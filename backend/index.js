@@ -1,14 +1,18 @@
+if (process.env.NODE_ENV !== "PRODUCTION") {
+  require("dotenv").config({ path: "config/config.env" });
+}
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const sendToken = require("./utils/jwtToken");
+const path = require("path");
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-const port = 4000;
+const port = process.env.PORT;
 
 const con = mysql.createConnection({
   user: "root",
@@ -378,6 +382,12 @@ app.get("/fetchAllFh", (req, res) => {
     res.end();
   });
 });
+
+// app.use(express.static(path.join(__dirname, "../dashboard/build")));
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "../dashboard/build/index.html"));
+// });
 
 app.listen(port, () => {
   console.log(`running backend server on ${port}`);
