@@ -15,10 +15,10 @@ app.use(cors());
 const port = process.env.PORT;
 
 const con = mysql.createConnection({
-  user: "root",
-  host: "localhost",
-  password: "",
-  database: "accountsection",
+  user: "sql12630070",
+  host: "sql12.freesqldatabase.com",
+  password: "hbtqALjIwl",
+  database: "sql12630070",
 });
 
 app.post("/register", (req, res) => {
